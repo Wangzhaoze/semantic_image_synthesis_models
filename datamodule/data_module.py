@@ -47,7 +47,8 @@ class SemanticToImageDataModule(pl.LightningDataModule):
             batch_size=self.batch_size,
             shuffle=self.shuffle,
             num_workers=self.num_workers,
-            pin_memory=True
+            pin_memory=True,
+            persistent_workers=True
         )
 
     def val_dataloader(self):
@@ -56,7 +57,8 @@ class SemanticToImageDataModule(pl.LightningDataModule):
             batch_size=self.batch_size,
             shuffle=False,
             num_workers=self.num_workers,
-            pin_memory=True
+            pin_memory=True,
+            persistent_workers=True
         )
 
     def test_dataloader(self):
@@ -65,5 +67,6 @@ class SemanticToImageDataModule(pl.LightningDataModule):
             batch_size=self.batch_size,
             shuffle=False,
             num_workers=self.num_workers,
-            pin_memory=True
+            pin_memory=True,
+            persistent_workers=True
         )

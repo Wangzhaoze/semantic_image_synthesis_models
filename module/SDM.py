@@ -1,5 +1,5 @@
 from module.backbone.gaussian_diffusion import GaussianDiffusion
-from module.backbone.unet import UNetModel
+from module.backbone.unet_attention import UNetModel
 from module.backbone import gaussian_diffusion as gd
 from module.backbone.respace import SpacedDiffusion, space_timesteps
 

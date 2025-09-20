@@ -1,9 +1,4 @@
-import os
-import torch
 from torch.utils.data import Dataset
-from PIL import Image
-import torchvision.transforms as transforms
-import numpy as np
 from typing import List
 
 
@@ -19,9 +14,7 @@ class BaseSemanticToImageDataset(Dataset):
             self, 
             root_dir, 
             n_classes, 
-            transform=transforms.Compose(
-                [transforms.ToTensor()]
-                )
+            transform=None
             ):
         """
         Args:
@@ -43,41 +36,8 @@ class BaseSemanticToImageDataset(Dataset):
     def _get_label_paths(self) -> List[str]:
         return NotImplementedError
 
-
     def __len__(self):
-        return len(self.image_paths)
-
-    def _one_hot_encode(self, label):
-        """
-        Convert single-channel label image to one-hot encoding using numpy.
-        Args:
-            label (PIL Image or np.array HxW): semantic label
-        Returns:
-            Tensor: one-hot encoded tensor of shape (n_classes, H, W)
-        """
-        if isinstance(label, Image.Image):
-            label = np.array(label, dtype=np.int32)
-        label_tensor = torch.from_numpy(label).long()  # H x W
-        one_hot = torch.nn.functional.one_hot(label_tensor, num_classes=self.n_classes) 
-        one_hot = one_hot.permute(2, 0, 1).float()
-        return one_hot
+        return NotImplementedError
 
     def __getitem__(self, idx):
-        # Load image
-        img_path = self.image_paths[idx]
-        img = Image.open(img_path).convert("RGB")
-        img = transforms.ToTensor()(img)
-        
-        if self.transform:
-            img = self.transform(img)  # shape: C x H x W
-        
-        # Load semantic map
-        semantic_path = self.label_paths[idx]
-        semantic = Image.open(semantic_path)
-        semantic = self._one_hot_encode(semantic)  # shape: n_classes x H x W
-
-        return {
-            "image": img,
-            "label": semantic
-        }
-    
+        return NotImplementedError
