@@ -5,7 +5,7 @@ from module.SDM import SemanticDiffusionModule
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning.loggers import TensorBoardLogger
-from module.cgan import ConditionalGAN
+from module.cGAN import ConditionalGAN
 from datamodule.data_module import SemanticToImageDataModule
 from datamodule.dataset.cmp_facade_dataset import CMPFacadeDataset
 from callbacks.plot_generated_image import PlotGeneratedImagesCallback
