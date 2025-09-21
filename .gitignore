@@ -3,6 +3,10 @@ __pycache__/
 *.py[codz]
 *$py.class
 
+
+# Training Logs
+lightning_logs/*
+
 # C extensions
 *.so
 
