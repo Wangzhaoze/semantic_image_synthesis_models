@@ -21,13 +21,11 @@ class BaseSemanticToImageModule(pl.LightningModule):
     def __init__(
         self,
         backbone: nn.Module,
-        latent_dim: int,
         lr: float = 2e-4,
-        weight_decay: float = 0.0,
+        weight_decay: float = 0.0
     ):
         super().__init__()
         self.backbone = backbone
-        self.latent_dim = latent_dim
         self.lr = lr
         self.weight_decay = weight_decay
 
@@ -44,3 +42,6 @@ class BaseSemanticToImageModule(pl.LightningModule):
         inp = batch["label"].float()
         target = batch["image"].float()
         return inp, target
+    
+    def generation_step(self, x, cond) -> torch.Tensor:
+        return NotImplementedError
